@@ -51,6 +51,26 @@ Remove-Item Env:UNO_SCREENSHOT_DIR
 Inspect the images for layout and rendering regressions. These complement, rather
 than replace, interactive testing of input and multiplayer behavior.
 
+### README gameplay GIF
+
+The preview in `docs/media/gameplay.gif` uses scripted legal moves through the
+real rules engine and renderer. It is not a bot mode or a multiplayer recording.
+With a graphical desktop available, capture 180 frames (12 seconds at 15 fps):
+
+```sh
+# macOS; keep the game window unobscured and don't interact during capture.
+UNO_GAMEPLAY_DIR=/tmp/uno-gameplay cargo run --release --locked --bin uno
+python3 -m venv /tmp/uno-gif-venv
+/tmp/uno-gif-venv/bin/pip install Pillow
+/tmp/uno-gif-venv/bin/python scripts/make-gameplay-gif.py /tmp/uno-gameplay docs/media/gameplay.gif
+```
+
+On Windows, set `$env:UNO_GAMEPLAY_DIR` as for the screenshot hook above, then
+remove it afterward. The encoder takes the frame directory and output GIF path;
+it requires Python with Pillow installed. It scales to 960×600 and uses a shared
+palette for stable colors. Inspect the result before committing; keep raw frames
+and Python environments outside the repository.
+
 ## Packaging
 
 ```sh
@@ -78,7 +98,8 @@ Public binary distribution should use appropriate signing and notarization.
 
 When changing the version, update `Cargo.toml`, `Cargo.lock`, and the macOS version
 fields in `packaging/macos/Info.plist`. Keep generated packages, screenshots,
-credentials, and local build output out of Git.
+credentials, and local build output out of Git. Curated README media in
+`docs/media/` is the exception.
 
 ## Source layout
 
@@ -92,7 +113,8 @@ credentials, and local build output out of Git.
 | `src/table_view.rs` | Camera presets, tabletop geometry, ray picking, and layout |
 | `src/card_motion.rs` | Card-flight animation and private-face handling |
 | `src/clipboard.rs` | Platform clipboard access and text-field sanitization |
+| `src/gameplay_capture.rs` | Opt-in scripted gameplay capture for README media |
 | `src/bin/server.rs` | Optional console host |
-| `scripts/` | macOS and Windows packaging |
+| `scripts/` | macOS/Windows packaging and gameplay GIF encoding |
 
 There is no public backend to deploy, and all game artwork is generated in code.

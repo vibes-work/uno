@@ -4,6 +4,8 @@ A native, player-hosted 3D UNO variant written in Rust for **Windows and macOS**
 Host a table, share a private invite, and play with friends—no accounts, public
 backend, or runtime asset downloads.
 
+![Gameplay preview: a four-player table with animated card plays, drawing, and a 3D camera orbit](docs/media/gameplay.gif)
+
 - **2–10 players** with private hands, draggable cards, and a freely movable 3D camera.
 - **House rules:** stacking Draw Twos, one-card draws without passing, and wild `?` cards that make a chosen opponent draw two.
 - Wild Draw Four challenges, UNO declarations and catching, and matches to 500 points.

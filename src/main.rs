@@ -1,5 +1,6 @@
 mod card_motion;
 mod clipboard;
+mod gameplay_capture;
 mod self_play;
 mod table_view;
 mod ui;
@@ -1884,6 +1885,10 @@ mod tests {
 async fn main() {
     prevent_quit();
     let mut app = App::new();
+    if let Ok(directory) = std::env::var("UNO_GAMEPLAY_DIR") {
+        gameplay_capture::render(&mut app, &directory).await;
+        return;
+    }
     if let Ok(directory) = std::env::var("UNO_SCREENSHOT_DIR") {
         render_smoke(&mut app, &directory).await;
         return;
