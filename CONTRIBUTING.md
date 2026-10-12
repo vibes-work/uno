@@ -89,8 +89,33 @@ to `aarch64-apple-darwin` or `x86_64-apple-darwin` to select it explicitly. The 
 script supports `x86_64-pc-windows-msvc`. Run each script on its corresponding OS.
 
 The CI workflow (`.github/workflows/ci.yml`) checks and packages Windows x64, macOS
-Apple Silicon, and macOS Intel, then uploads workflow artifacts. It does not
-publish GitHub releases. Downloaded workflow artifacts contain the package ZIP.
+Apple Silicon, and macOS Intel, then uploads workflow artifacts. Downloaded
+workflow artifacts contain the package ZIP. Branch pushes and pull requests do
+not publish releases.
+
+### Publishing a release
+
+After merging the changes you want to ship, update `Cargo.toml`, `Cargo.lock`,
+and the macOS version fields in `packaging/macos/Info.plist`, then commit those
+changes. Tag that commit and push the tag, for example:
+
+```sh
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push origin v0.1.0
+```
+
+Pushing a `v*` tag runs the same checks and native packaging jobs. Only after all
+three platforms succeed does CI create a GitHub Release with the three ZIPs,
+`SHA256SUMS.txt`, and automatically generated release notes. Tags containing a
+hyphen (for example, `v0.2.0-rc.1`) are marked as prereleases and do not replace
+the latest stable download links in the README. Use a new version tag for each
+release; the job does not overwrite an existing release.
+
+Publishing uses GitHub's built-in `GITHUB_TOKEN` with `contents: write` scoped to
+the release job; no personal access token or extra secret is needed. Repository
+or organization policies must allow that permission. The README download links
+work after the first stable release is published. Check the **Actions** tab for
+build failures before sharing a new release.
 
 Packages are **not distribution-signed or notarized**; macOS packaging applies
 only a local ad-hoc signature. Do not disable platform security protections.

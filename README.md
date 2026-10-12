@@ -15,6 +15,25 @@ backend, or runtime asset downloads.
 This is an independent, unofficial implementation, not affiliated with or endorsed
 by Mattel. UNO is a Mattel trademark; no official artwork is used.
 
+## Download
+
+Download the latest release—no Rust installation required:
+
+| Platform | Download |
+| --- | --- |
+| Windows x64 | [Windows ZIP](https://github.com/vibes-work/uno/releases/latest/download/uno-x86_64-pc-windows-msvc.zip) |
+| macOS Apple Silicon (M-series) | [Apple Silicon ZIP](https://github.com/vibes-work/uno/releases/latest/download/uno-aarch64-apple-darwin.zip) |
+| macOS Intel | [Intel ZIP](https://github.com/vibes-work/uno/releases/latest/download/uno-x86_64-apple-darwin.zip) |
+
+Extract the ZIP, then open `uno.exe` on Windows or `UNO.app` on macOS. Each
+package also includes the optional console host and documentation.
+[All releases, release notes, and SHA-256 checksums](https://github.com/vibes-work/uno/releases)
+are available on GitHub. These links become available after the first release.
+
+Packages are **unsigned/not notarized for distribution**, so macOS Gatekeeper or
+Windows SmartScreen may warn or block launching. Only approve builds you trust;
+do not disable system security protections globally.
+
 ## Build and run
 
 Install [stable Rust](https://rustup.rs/) and your platform's build tools:
