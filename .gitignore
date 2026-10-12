@@ -1,0 +1,12 @@
+/target/
+/dist/
+/screenshots/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example

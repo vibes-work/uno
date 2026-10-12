@@ -1,0 +1,30 @@
+[package]
+name = "uno"
+version = "0.1.0"
+edition = "2021"
+description = "A player-hosted 3D UNO variant for Windows and macOS"
+license = "MIT"
+default-run = "uno"
+
+[dependencies]
+macroquad = "=0.4.14"
+rand = "0.8.5"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Miniquad 0.4.8's macOS clipboard implementation is a no-op.
+[target.'cfg(target_os = "macos")'.dependencies]
+arboard = { version = "3", default-features = false }
+
+[[bin]]
+name = "uno"
+path = "src/main.rs"
+
+[[bin]]
+name = "uno-server"
+path = "src/bin/server.rs"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

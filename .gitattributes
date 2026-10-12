@@ -1,0 +1,6 @@
+# Consistent text files on macOS and Windows, including executable shell scripts.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.zip binary
